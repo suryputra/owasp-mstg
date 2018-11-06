@@ -267,6 +267,10 @@ Review the code and identify the parts that refer to critical operations. Make s
 
 Identify all of the tested application's critical operations (e.g., user enrollment, account recovery, and money transfer). Ensure that each critical operation requires at least one additional channel (e.g., SMS, e-mail, or token). Make sure that directly calling the function bypasses usage of these channels.
 
+#### Dangers of SMS as a 2nd factor for authentication
+
+On the surface, SMS seems like a pretty secure option for 2nd factor for the authentication, but the problem lies in the protocol used by major Telecom companies, Signaling System No. 7 or SS7.If a hacker breaches that network, they can intercept 2FA codes sent to one's phone number using the [terminating sms intercept by imsi attack](https://hitcon.org/2015/CMT/download/day1-d-r0.pdf"terminating sms intercept by imsi attack").
+
 #### Remediation
 
 Make sure that critical operations enforce the use of at least one additional channel to confirm user actions. These channels must not be bypassed when executing critical operations. If you're going to implement an additional factor to verify the user's identity, consider [Infobip 2FA library](https://2-fa.github.io/libraries/android-library.html "Infobip 2FA library") or one-time passcodes (OTP) via [Google Authenticator](https://github.com/google/google-authenticator-android "Google Authenticator for Android").
